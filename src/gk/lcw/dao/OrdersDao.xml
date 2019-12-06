@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="gk.lcw.dao.OrdersDao">
+		<select id="findOrders" resultType="Orders">
+			select * from orders_info where orderStatus="待接单"
+		</select>
+ <!-- 		
+		<select id="findAccepted1" resultType="Orders" parameterType="int">
+			select * from orders_info where orderStatus="进行中" and helper_userID=#{userID}
+		</select> --> 
+		
+		<select id="findAccepted2" resultType="Orders" parameterType="int">
+			select * from orders_info where orderStatus="进行中" or orderStatus="待确定" and userID=#{userID}
+		</select>
+		
+<!-- 		<select id="findComplete1" resultType="Orders" parameterType="int">
+			select * from orders_info where orderStatus="已完成" and helper_userID=#{userID}
+		</select>
+		
+		<select id="findComplete2" resultType="Orders" parameterType="int">
+			select * from orders_info where orderStatus="已完成" and userID=#{userID}
+		</select>
+		
+		<select id="findWaiting" resultType="Orders" parameterType="int">
+			select * from orders_info where orderStatus="待接单" and userID=#{userID}
+		</select> -->
+		
+		<select id="findCurrentOrder" resultType="Orders" parameterType="int">
+			select * from orders_info where orderID=#{orderID}
+		</select>
+		
+		<select id="findOrder" resultType="Orders" parameterType="java.util.Map">
+			select * from orders_info where orderStatus=#{orderStatus} and 
+			<if test="userID!=null and userID!='' " >
+				userID=#{userID}
+			</if>
+			<if test="helper_userID!=null and helper_userID!='' " >
+				helper_userID=#{helper_userID}
+			</if>
+			
+		</select>
+		
+		<select id="findSelfHelp" resultType="Orders" parameterType="int">
+			select * from orders_info where helper_userID=#{userID}
+		</select>
+		
+		<select id="findSelfGetHelp" resultType="Orders" parameterType="int">
+			select * from orders_info where  userID=#{userID}
+		</select>
+		
+		
+		
+		
+		
+		
+		
+		<insert id="insertOrders" parameterType="Orders">
+			insert into orders_info
+			(userID,user_name,orderType,takeAddress,putAddress,users_phone,weight,orderTime,money,message,settingTime
+			<if test="evidence1!=null and evidence1!='' ">
+				,evidence1
+			</if>
+			<if test="type_info!=null and type_info!='' ">
+				,type_info
+			</if>
+			) 
+			values(
+			#{userID},#{user_name},#{orderType},
+			#{takeAddress},#{putAddress},#{users_phone},
+			#{weight},#{orderTime},#{money},#{message},#{settingTime}
+			<if test="evidence1!=null and evidence1!='' ">
+				,#{evidence1}
+			</if>
+			<if test="type_info!=null and type_info!='' ">
+				,#{type_info}
+			</if>
+			);
+		</insert>
+		
+		<select id="getStatus" parameterType="int" resultType="String">
+			select orderStatus from orders_info where orderID=#{orderID}
+		</select>
+		
+		<select id="getUserID" parameterType="int" resultType="int">
+			select userID from orders_info where orderID=#{orderID}
+		</select>
+		
+		<update id="grapOrder" parameterType="int">
+			update orders_info set orderStatus="进行中",helper_userID=#{userID,jdbcType=VARCHAR} where orderID=#{orderID,jdbcType=VARCHAR}
+		</update>
+		
+		<update id="completeOrder" parameterType="int">
+			update orders_info set orderStatus="待确定" where orderID=#{orderID}
+		</update>
+		
+		<update id="confirmOrder" parameterType="int">
+			update orders_info set orderStatus="已完成" where orderID=#{orderID}
+		</update>
+		
+		<update id="cancleOrder" parameterType="int">
+			update set orderStatus="已取消" where orderID=#{orderID}
+		</update>
+		
+		<update id="updateOrders" parameterType="Orders">
+			update orders_info set
+			user_name=#{user_name},orderType=#{orderType},
+			takeAddress=#{takeAddress},putAddress=#{putAddress},
+			users_phone=#{users_phone},
+			weight=#{weight},orderTime=#{orderTime},
+			money=#{money},message=#{message},
+			type_info=#{type_info}
+			<if test="evidence1!=null and evidence1!='' ">
+				,evidence1=#{evidence1}
+			</if>
+			<if test="type_info!=null and type_info!='' ">
+				,type_info=#{type_info}
+			</if>
+		</update>
+		
+		
+</mapper>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="gk.lcw.dao.H_helperDao">
+	<insert id="addH_helper" parameterType="H_helper">
+		insert into h_helper(userID,phone,grade,ID,studentID,dormitory,studentCard,openid,realName,h_password) 
+		values(#{userID},#{phone},#{grade},#{ID},#{studentID},#{dormitory},#{studentCard},#{openid},#{realName},#{h_password})
+	</insert>
+	<update id="updateToHelper" parameterType="int">
+		update h_user set userType="跑腿员" where userID=#{userID}
+	</update>
+	<select id="getHelper" parameterType="String" resultType="H_helper">
+		select * from h_helper where openid=#{openid}
+	</select>
+	<select id="getUser" parameterType="int" resultType="H_user">
+		select * from h_user where userID=#{userID}
+	</select>
+</mapper>

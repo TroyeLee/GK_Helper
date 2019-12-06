@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="gk.lcw.dao.H_userDao">
+	<select id="findH_userByPhone" parameterType="String" resultType="H_user">
+		select * from h_user where phone = #{phone}
+	</select>
+	
+	<select id="checkHuser" parameterType="H_user" resultType="H_user">
+			select * from h_user where phone=#{phone} and h_password=#{h_password}
+		</select>
+		<insert id="addH_user" parameterType="H_user">
+			insert into h_user(phone,h_password,weChatName,realName,gender) values(#{phone},#{h_password},#{weChatName},#{realName},#{gender})
+		</insert>
+		<update id="updateH_user" parameterType="H_user">
+			update h_user set username=#{username} ,t_password=#{t_password}, jobs=#{jobs} , phone=#{phone} where id=#{id}
+		</update>
+		<delete id="deleteH_user" parameterType="Integer">
+			delete from h_user where userID=#{id}
+		</delete>
+</mapper>

@@ -1,0 +1,25 @@
+@CHARSET "UTF-8";
+
+/* .evidence{
+	height:100px;
+	position: relative;
+} */
+.evidence_div{
+	position: absolute;
+	left: 100px;
+}
+.evidence_div_input{
+	position: absolute;
+	float: left; 
+	z-index: 10; 
+	opacity: 0;
+	width: 100px; 
+	height: 100px;
+}
+.evidence_div_pic{
+	position: absolute; 
+	z-index: 9; 
+	float: left; 
+	width: 100px; 
+	height: 100px;
+}

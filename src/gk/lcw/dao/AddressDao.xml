@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="gk.lcw.dao.AddressDao">
+		<select id="getAddress" parameterType="int" resultType="Address">
+			select * from address where userID=#{userID}
+		</select>
+		<update id="updateAddress" parameterType="Address" >
+			update address set userName=#{userName} , phone=#{phone} , addressInfo=#{addressInfo} 
+			where addressID=#{addressID}
+		</update>
+		<delete id="deleteAddress" parameterType="int">
+			delete from address where addressID=#{addressID}
+		</delete>
+		<insert id="insertAddress" parameterType="Address">
+			insert into address(userName,phone,addressInfo,userID) values(#{userName},#{phone},#{addressInfo},#{userID})
+		</insert>
+</mapper>

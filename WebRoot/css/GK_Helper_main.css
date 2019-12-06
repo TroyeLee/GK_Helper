@@ -1,0 +1,17 @@
+@CHARSET "UTF-8";
+ .choose{
+	width:600px;
+	height:100px;
+} 
+.choose_{
+	display:inline-block;
+	width:100px;
+	height:50px;
+	cursor: pointer;
+}
+.choose_:ACTIVE {
+	background-color: gray;
+}
+.publish{
+	color:gray;
+}
